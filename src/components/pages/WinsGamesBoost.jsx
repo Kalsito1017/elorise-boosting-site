@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import './GetStarted.css';
+import { useState, useEffect } from 'react';
+import './WinsGamesBoost.css';
 
-// Reuse the same data
 const ranks = [
     { id: 1, name: 'Iron', color: '#51484A', divisions: ['IV', 'III', 'II', 'I'] },
     { id: 2, name: 'Bronze', color: '#A97142', divisions: ['IV', 'III', 'II', 'I'] },
@@ -10,16 +9,7 @@ const ranks = [
     { id: 5, name: 'Platinum', color: '#4FD1B7', divisions: ['IV', 'III', 'II', 'I'] },
     { id: 6, name: 'Emerald', color: '#2ECC71', divisions: ['IV', 'III', 'II', 'I'] },
     { id: 7, name: 'Diamond', color: '#6CB2EB', divisions: ['IV', 'III', 'II', 'I'] },
-    { id: 8, name: 'Master', color: '#9F7AEA', divisions: [] },
-];
-
-const lpRanges = [
-    '0-20 LP',
-    '21-40 LP',
-    '41-60 LP',
-    '61-80 LP',
-    '81-99 LP',
-    '100+ LP (Promos)'
+    { id: 8, name: 'Master+', color: '#9F7AEA', divisions: ['0 - 200', ' 201 - 400', '401-600', '601-800', '801-1000', '1001+'] },
 ];
 
 const servers = [
@@ -32,47 +22,150 @@ const servers = [
     'Turkey'
 ];
 
+const lpPerWinOptions = [
+    '(18 - 22 LP)',
+    '(24 - 27 LP)',
+    '(28+ LP)'
+];
+
 function WinsGamesBoost() {
     const [currentRank, setCurrentRank] = useState({
         tier: 'Platinum',
         division: 'IV',
-        lp: '0-20 LP',
-        lpPerWin: 'Normal (23+ LP)'
+        lpRange: '0-20 LP',
+        lpPerWin: '(24 - 27 LP)',
+        currentLPRange: '0-100'
+
     });
 
     const [server, setServer] = useState('North America');
     const [queueType, setQueueType] = useState('solo');
-    const [winsConfig, setWinsConfig] = useState({ numberOfWins: 4 });
+    const [winsConfig, setWinsConfig] = useState({ numberOfWins: 3 });
 
-    const handleRankSelect = (type, field, value) => {
-        setCurrentRank({ ...currentRank, [field]: value });
+    // Base price per win (for Platinum tier)
+    const basePricePerWin = 4.95;
+    const [priceDetails, setPriceDetails] = useState({
+        basePrice: 14.85,
+        discount: 0.00,
+        finalPrice: 14.85
+    });
+
+    // Tier multipliers for pricing
+    const tierMultipliers = {
+        'Iron': 0.7,
+        'Bronze': 0.8,
+        'Silver': 0.9,
+        'Gold': 1.0,
+        'Platinum': 1.2,
+        'Emerald': 1.4,
+        'Diamond': 1.6,
+        'Master': 2.0
+    };
+
+    // Calculate price whenever relevant state changes
+    useEffect(() => {
+        calculatePrice();
+    }, [currentRank, winsConfig.numberOfWins, queueType]);
+
+    const calculatePrice = () => {
+        // Base calculation
+        const tierMultiplier = tierMultipliers[currentRank.tier] || 1.0;
+        let basePrice = basePricePerWin * winsConfig.numberOfWins * tierMultiplier;
+
+        // Apply queue type multiplier (10% increase for duo)
+        if (queueType === 'duo') {
+            basePrice *= 1.1;
+        }
+
+        // Apply discounts for bulk purchases
+        let discount = 0;
+        if (winsConfig.numberOfWins >= 5) {
+            discount = basePrice * 0.15; // 15% discount for 5 wins
+        } else if (winsConfig.numberOfWins >= 3) {
+            discount = basePrice * 0.10; // 10% discount for 3+ wins
+        }
+
+        const finalPrice = basePrice - discount;
+
+        setPriceDetails({
+            basePrice: parseFloat(basePrice.toFixed(2)),
+            discount: parseFloat(discount.toFixed(2)),
+            finalPrice: parseFloat(finalPrice.toFixed(2))
+        });
+    };
+
+    const handleRankSelect = (field, value) => {
+        const newRank = { ...currentRank, [field]: value };
+
+        // If selecting Master or higher, reset division
+        if (field === 'tier' && (value === 'Master' || value === 'Grandmaster' || value === 'Challenger')) {
+            newRank.division = '';
+        }
+
+        setCurrentRank(newRank);
     };
 
     const handleWinsChange = (value) => {
-        setWinsConfig({ numberOfWins: value });
+        setWinsConfig({ numberOfWins: Math.min(5, Math.max(1, value)) });
     };
 
-    // Price calculation for wins
-    const basePrice = 19.80;
-    const discount = 4.20;
-    const finalPrice = basePrice - discount;
+    const incrementWins = () => {
+        if (winsConfig.numberOfWins < 5) {
+            handleWinsChange(winsConfig.numberOfWins + 1);
+        }
+    };
+
+    const decrementWins = () => {
+        if (winsConfig.numberOfWins > 1) {
+            handleWinsChange(winsConfig.numberOfWins - 1);
+        }
+    };
+
+    const boostTypes = [
+        { id: 'division', name: 'Division Boost', desc: 'Climb divisions fast with pro boosters', icon: '🏆', path: '/get-started/division' },
+        { id: 'wins-games', name: 'Wins/Games Boost', desc: 'Win more games with expert help', icon: '⚔️', path: '/get-started/wins-games' },
+        { id: 'placements', name: 'Placements', desc: 'Crush your placements for a higher start', icon: '🎯', path: '/get-started/placements' },
+    ];
 
     return (
-        <div className="get-started-page">
-            {/* Hero Section */}
-            <div className="get-started-hero">
-                <h1>WINS/GAMES BOOST</h1>
-                <p>Win more games with expert help from our professional boosters</p>
-            </div>
-
-            <div className="get-started-container">
+        <div className="wins-games-boost-page">
+            <div className="wins-boost-container">
                 {/* Left Panel - Configuration */}
                 <div className="config-panel">
                     {/* Navigation between boost types */}
                     <div className="boost-type-nav">
-                        <a href="/get-started/division" className="boost-nav-link">Division Boost</a>
-                        <a href="/get-started/wins-games" className="boost-nav-link active">Wins/Games Boost</a>
-                        <a href="/get-started/placements" className="boost-nav-link">Placements</a>
+                        <a href="/get-started/division" className="boost-nav-link">
+                            <div className="nav-card">
+                                <div className="nav-indicator"></div>
+                                <div className="nav-icon">🏆</div>
+                                <div className="nav-content">
+                                    <h3>Division Boost</h3>
+                                    <p>Rank up through divisions and tiers</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="/get-started/wins-games" className="boost-nav-link active">
+                            <div className="nav-card active">
+                                <div className="nav-indicator"></div>
+                                <div className="nav-icon">⚔️</div>
+                                <div className="nav-content">
+                                    <h3>Wins/Games Boost</h3>
+                                    <p>Win more games with expert help</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="/get-started/placements" className="boost-nav-link">
+                            <div className="nav-card">
+                                <div className="nav-indicator"></div>
+                                <div className="nav-icon">🎯</div>
+                                <div className="nav-content">
+                                    <h3>Placements</h3>
+                                    <p>Complete your placement matches</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
 
                     {/* Wins Boost Configuration */}
@@ -92,7 +185,7 @@ function WinsGamesBoost() {
                                         <div
                                             key={rank.id}
                                             className={`tier-option ${currentRank.tier === rank.name ? 'selected' : ''}`}
-                                            onClick={() => handleRankSelect('current', 'tier', rank.name)}
+                                            onClick={() => handleRankSelect('tier', rank.name)}
                                             style={{ borderColor: currentRank.tier === rank.name ? rank.color : 'transparent' }}
                                         >
                                             <div className="tier-icon" style={{ backgroundColor: rank.color }}>
@@ -102,17 +195,16 @@ function WinsGamesBoost() {
                                         </div>
                                     ))}
                                 </div>
-
                                 {/* Division Selection */}
                                 {currentRank.tier && ranks.find(r => r.name === currentRank.tier)?.divisions.length > 0 && (
                                     <div className="division-section">
-                                        <h3>Division</h3>
+                                        <h3>{currentRank.tier === 'Master+' ? 'CURRENT LP RANGE' : 'Division'}</h3>
                                         <div className="division-grid">
                                             {ranks.find(r => r.name === currentRank.tier)?.divisions.map(div => (
                                                 <button
                                                     key={div}
                                                     className={`division-btn ${currentRank.division === div ? 'active' : ''}`}
-                                                    onClick={() => handleRankSelect('current', 'division', div)}
+                                                    onClick={() => handleRankSelect('division', div)}
                                                 >
                                                     {div}
                                                 </button>
@@ -120,31 +212,108 @@ function WinsGamesBoost() {
                                         </div>
                                     </div>
                                 )}
+
+                                {/* AVG. LP PER WIN Section (only for Master+) */}
+                                {currentRank.tier === 'Master+' && (
+                                    <div className="lp-per-win-section">
+                                        <h3>AVG. LP PER WIN</h3>
+                                        <div className="lp-per-win-options">
+                                            {['(18 - 22 LP)', '(24 - 27 LP)', '(28+ LP)'].map(lp => (
+                                                <button
+                                                    key={lp}
+                                                    className={`lp-per-win-btn ${currentRank.lpPerWin === lp ? 'active' : ''}`}
+                                                    onClick={() => handleRankSelect('lpPerWin', lp)}
+                                                >
+                                                    {lp}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Current LP Range (for Master and below) */}
+                                {currentRank.tier !== 'Master+' && (
+                                    <div className="lp-range-section">
+                                        <h3>CURRENT LP RANGE</h3>
+                                        <div className="lp-range-options">
+                                            {['0-20 LP', '21-40 LP', '41-60 LP', '61-80 LP', '81-99 LP', '100+ LP (Promos)'].map(lp => (
+                                                <button
+                                                    key={lp}
+                                                    className={`lp-range-btn ${currentRank.currentLPRange === lp ? 'active' : ''}`}
+                                                    onClick={() => handleRankSelect('lpRange', lp)}
+                                                >
+                                                    {lp}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Avg LP Per Win (for Master and below) */}
+                                {currentRank.tier !== 'Master+' && (
+                                    <div className="lp-per-win-section">
+                                        <h3>AVG. LP PER WIN</h3>
+                                        <div className="lp-per-win-options">
+                                            {lpPerWinOptions.map(lp => (
+                                                <button
+                                                    key={lp}
+                                                    className={`lp-per-win-btn ${currentRank.lpPerWin === lp ? 'active' : ''}`}
+                                                    onClick={() => handleRankSelect('lpPerWin', lp)}
+                                                >
+                                                    {lp}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
-                            {/* Server Selection */}
-                            <div className="server-section">
-                                <h3>SERVER</h3>
-                                <select
-                                    className="server-select-full"
-                                    value={server}
-                                    onChange={(e) => setServer(e.target.value)}
-                                >
-                                    {servers.map(srv => (
-                                        <option key={srv} value={srv}>{srv}</option>
-                                    ))}
-                                </select>
+                            {/* Server Selection Card */}
+                            <div className="config-card">
+                                <div className="card-header">
+                                    <div className="card-icon">🌐</div>
+                                    <div className="card-title">
+                                        <h2>Server Selection</h2>
+                                        <p>Choose your game server</p>
+                                    </div>
+                                </div>
+                                <div className="server-selector">
+                                    <div className="custom-select">
+                                        <select
+                                            value={server}
+                                            onChange={(e) => setServer(e.target.value)}
+                                            className="modern-select"
+                                        >
+                                            {servers.map(srv => (
+                                                <option key={srv} value={srv}>{srv}</option>
+                                            ))}
+                                        </select>
+                                        <div className="select-arrow">▼</div>
+                                    </div>
+                                    <p className="server-note">Your server determines booster availability and ping</p>
+                                </div>
                             </div>
-
-                            {/* Divider Line */}
-                            <div className="section-divider"></div>
 
                             {/* Number of Wins Section */}
                             <div className="wins-number-section">
                                 <div className="wins-header">
                                     <h3>Number of Wins</h3>
                                     <div className="wins-display">
+                                        <button
+                                            className="wins-btn decrement"
+                                            onClick={decrementWins}
+                                            disabled={winsConfig.numberOfWins <= 1}
+                                        >
+                                            -
+                                        </button>
                                         <span className="wins-number-large">{winsConfig.numberOfWins}</span>
+                                        <button
+                                            className="wins-btn increment"
+                                            onClick={incrementWins}
+                                            disabled={winsConfig.numberOfWins >= 5}
+                                        >
+                                            +
+                                        </button>
                                     </div>
                                 </div>
 
@@ -153,43 +322,23 @@ function WinsGamesBoost() {
                                     <input
                                         type="range"
                                         min="1"
-                                        max="20"
+                                        max="5"
+                                        step="1"
                                         value={winsConfig.numberOfWins}
                                         onChange={(e) => handleWinsChange(parseInt(e.target.value))}
                                         className="wins-slider-input"
                                     />
                                     <div className="slider-labels">
                                         <span>1</span>
+                                        <span>2</span>
+                                        <span>3</span>
+                                        <span>4</span>
                                         <span>5</span>
-                                        <span>10</span>
-                                        <span>15</span>
-                                        <span>20</span>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Divider Line */}
-                            <div className="section-divider"></div>
 
-                            {/* FAQ Section */}
-                            <div className="wins-faq-section">
-                                <h3 className="faq-question">What happens if a game is lost during my win boost?</h3>
-                                <p className="faq-answer">
-                                    Don't worry! Our professional boosters will play additional games to ensure you get your
-                                    ordered wins. All losses are covered by our service at no extra cost.
-                                </p>
-                            </div>
-
-                            {/* Season Banner */}
-                            <div className="season-banner">
-                                <div className="season-content">
-                                    <div className="season-icon">🏆</div>
-                                    <div className="season-text">
-                                        <h4>Season 15 is in progress.</h4>
-                                        <p>Get your boost today and take advantage of our premium services!</p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -218,20 +367,6 @@ function WinsGamesBoost() {
                     <div className="order-summary">
                         <h2>ORDER SUMMARY</h2>
 
-                        {/* Order Info */}
-                        <div className="boost-order-info">
-                            <div className="wins-summary">
-                                <div className="current-rank-display">
-                                    <span className="label">CURRENT RANK:</span>
-                                    <span className="rank-value">{currentRank.tier} {currentRank.division}</span>
-                                </div>
-                                <div className="wins-count-display">
-                                    <span className="label">WINS ORDERED:</span>
-                                    <span className="rank-value">{winsConfig.numberOfWins} Wins</span>
-                                </div>
-                            </div>
-                        </div>
-
                         {/* Boost Details */}
                         <div className="boost-details">
                             <div className="detail-item">
@@ -242,6 +377,38 @@ function WinsGamesBoost() {
                                 <span className="detail-label">Number of Wins:</span>
                                 <span className="detail-value">{winsConfig.numberOfWins} Wins</span>
                             </div>
+
+                            {/* Current Rank - Show only tier name for Master+ */}
+                            <div className="detail-item">
+                                <span className="detail-label">Current Rank:</span>
+                                <span className="detail-value">
+                                    {currentRank.tier === 'Master+'
+                                        ? 'Master+'  // Just show "Master+" without LP range
+                                        : `${currentRank.tier} ${currentRank.division}`}
+                                </span>
+                            </div>
+
+                            {/* Show LP Range for Master+, Current LP for others */}
+                            {currentRank.tier === 'Master+' ? (
+                                // Master+ details
+                                <div className="detail-item">
+                                    <span className="detail-label">LP Range:</span>
+                                    <span className="detail-value">{currentRank.division} LP</span>
+                                </div>
+                            ) : (
+                                // Non-Master+ details
+                                <div className="detail-item">
+                                    <span className="detail-label">Current LP:</span>
+                                    <span className="detail-value">{currentRank.lpRange}</span>
+                                </div>
+                            )}
+
+                            {/* Avg LP per Win for ALL tiers */}
+                            <div className="detail-item">
+                                <span className="detail-label">Avg LP per Win:</span>
+                                <span className="detail-value">{currentRank.lpPerWin}</span>
+                            </div>
+
                             <div className="detail-item">
                                 <span className="detail-label">Server:</span>
                                 <span className="detail-value">{server}</span>
@@ -251,33 +418,36 @@ function WinsGamesBoost() {
                                 <span className="detail-value">{queueType.toUpperCase()}</span>
                             </div>
                         </div>
-
                         {/* Savings Banner */}
-                        <div className="savings-banner">
-                            <div className="savings-content">
-                                <div className="savings-text">
-                                    <span className="savings-message">YOU SAVED ${discount.toFixed(2)} ON YOUR ORDER!</span>
-                                    <span className="upsell-message">ADD MORE WINS AND SAVE MORE</span>
+                        {priceDetails.discount > 0 && (
+                            <div className="savings-banner">
+                                <div className="savings-content">
+                                    <div className="savings-text">
+                                        <span className="savings-message">YOU SAVED ${priceDetails.discount.toFixed(2)} ON YOUR ORDER!</span>
+                                        <span className="upsell-message">ADD MORE WINS AND SAVE MORE</span>
+                                    </div>
+                                    <div className="loyalty-points">+{winsConfig.numberOfWins * 10} Loyalty Points</div>
                                 </div>
-                                <div className="loyalty-points">+65 Loyalty Points</div>
                             </div>
-                        </div>
+                        )}
 
                         {/* Price Summary */}
                         <div className="price-summary">
                             <div className="price-row">
                                 <span className="price-label">Base Price:</span>
-                                <span className="price-value">${basePrice.toFixed(2)}</span>
+                                <span className="price-value">${priceDetails.basePrice.toFixed(2)}</span>
                             </div>
-                            <div className="price-row">
-                                <span className="price-label">Discount:</span>
-                                <span className="price-value discount">-${discount.toFixed(2)}</span>
-                            </div>
+                            {priceDetails.discount > 0 && (
+                                <div className="price-row">
+                                    <span className="price-label">Discount:</span>
+                                    <span className="price-value discount">-${priceDetails.discount.toFixed(2)}</span>
+                                </div>
+                            )}
                             <div className="price-row total">
                                 <span className="price-label">Total Price:</span>
                                 <div className="total-price">
-                                    <span className="old-price">${basePrice.toFixed(2)}</span>
-                                    <span className="final-price">${finalPrice.toFixed(2)}</span>
+                                    <span className="old-price">${priceDetails.basePrice.toFixed(2)}</span>
+                                    <span className="final-price">${priceDetails.finalPrice.toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>
@@ -306,7 +476,7 @@ function WinsGamesBoost() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

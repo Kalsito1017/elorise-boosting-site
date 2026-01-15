@@ -1,0 +1,926 @@
+/* Modern Wins/Games Boost CSS */
+.wins-games-boost-page {
+    background: linear-gradient(135deg, #0a0a0f 0%, #0f1117 100%);
+    min-height: 100vh;
+    color: #ffffff;
+}
+
+/* Hero Section */
+.wins-boost-hero {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wins-boost-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+}
+
+.wins-boost-hero p {
+    font-size: 1.125rem;
+    color: #94a3b8;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Boost Navigation */
+.boost-type-nav {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    padding: 0 2rem;
+    display: flex;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 0.5rem;
+}
+
+.boost-nav-link {
+    flex: 1;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: #94a3b8;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.boost-nav-link.active {
+    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
+    color: white;
+}
+
+.boost-nav-link:hover:not(.active) {
+    background: rgba(122, 191, 255, 0.1);
+    color: #bfdbfe;
+}
+
+/* Main Container */
+.wins-boost-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+}
+
+/* Configuration Panel */
+.config-panel {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+/* Section Header */
+.section-header {
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.section-subtitle {
+    color: #94a3b8;
+    font-size: 0.875rem;
+}
+
+/* Tier Grid */
+.tier-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.tier-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.tier-option:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+    border-color: rgba(122, 191, 255, 0.3);
+}
+
+.tier-option.selected {
+    background: linear-gradient(135deg, rgba(122, 191, 255, 0.1), rgba(74, 143, 231, 0.05));
+    border-color: rgba(122, 191, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(122, 191, 255, 0.1);
+}
+
+.tier-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.tier-option span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #cbd5e1;
+}
+
+/* Division Section */
+.division-section,
+.lp-range-section,
+.lp-per-win-section {
+    margin-bottom: 1.5rem;
+}
+
+.division-section h3,
+.lp-range-section h3,
+.lp-per-win-section h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+}
+
+.division-grid,
+.lp-range-options,
+.lp-per-win-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.division-btn,
+.lp-range-btn,
+.lp-per-win-btn {
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #cbd5e1;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.division-btn:hover,
+.lp-range-btn:hover,
+.lp-per-win-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(122, 191, 255, 0.3);
+}
+
+.division-btn.active,
+.lp-range-btn.active,
+.lp-per-win-btn.active {
+    background: linear-gradient(135deg, rgba(122, 191, 255, 0.2), rgba(74, 143, 231, 0.1));
+    border-color: #7abfff;
+    color: white;
+}
+
+/* Server Section */
+.server-section {
+    margin-bottom: 1.5rem;
+}
+
+.server-section h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+}
+
+.server-select-full {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.server-select-full:focus {
+    outline: none;
+    border-color: #7abfff;
+    box-shadow: 0 0 0 3px rgba(122, 191, 255, 0.1);
+}
+
+/* Divider */
+.section-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 1.5rem 0;
+}
+
+/* Wins Number Section */
+.wins-number-section {
+    margin-bottom: 1.5rem;
+}
+
+.wins-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.wins-header h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.wins-display {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.wins-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #7abfff;
+    background: transparent;
+    color: #7abfff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.wins-btn:hover:not(:disabled) {
+    background: #7abfff;
+    color: white;
+    transform: scale(1.1);
+}
+
+.wins-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.wins-number-large {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    min-width: 50px;
+    text-align: center;
+}
+
+/* Wins Slider */
+.wins-slider-container {
+    position: relative;
+    padding: 1rem 0;
+}
+
+.wins-slider-input {
+    width: 100%;
+    height: 6px;
+
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    outline: none;
+}
+
+.wins-slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
+    cursor: pointer;
+    border: 3px solid #0a0a0f;
+    box-shadow: 0 2px 8px rgba(122, 191, 255, 0.3);
+}
+
+.wins-slider-input::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
+    cursor: pointer;
+    border: 3px solid #0a0a0f;
+    box-shadow: 0 2px 8px rgba(122, 191, 255, 0.3);
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.slider-labels span {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+/* FAQ Section */
+.wins-faq-section {
+    margin-bottom: 1.5rem;
+}
+
+.faq-question {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #7abfff;
+    margin-bottom: 0.75rem;
+}
+
+.faq-answer {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    background: rgba(122, 191, 255, 0.05);
+    border: 1px solid rgba(122, 191, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+/* Season Banner */
+.season-banner {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+    border: 1px solid rgba(122, 191, 255, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.season-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.season-icon {
+    font-size: 2rem;
+}
+
+.season-text h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: white;
+}
+
+.season-text p {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+/* Queue Type Section */
+.queue-type-section {
+    margin-bottom: 1.5rem;
+}
+
+.queue-type-section h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+}
+
+.queue-type-buttons {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.queue-btn {
+    flex: 1;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #cbd5e1;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.queue-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(122, 191, 255, 0.3);
+}
+
+.queue-btn.active {
+    background: linear-gradient(135deg, rgba(122, 191, 255, 0.2), rgba(74, 143, 231, 0.1));
+    border-color: #7abfff;
+    color: white;
+}
+
+/* Summary Panel */
+.summary-panel {
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+}
+
+.order-summary {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+    border: 1px solid rgba(122, 191, 255, 0.2);
+    border-radius: 20px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.order-summary h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: white;
+    text-align: center;
+}
+
+/* Boost Order Info */
+.boost-order-info {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.wins-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.current-rank-display,
+.wins-count-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.rank-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+}
+
+/* Boost Details */
+.boost-details {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.detail-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.detail-label {
+    font-size: 0.875rem;
+    color: #94a3b8;
+}
+
+.detail-value {
+    font-size: 0.875rem;
+    color: white;
+    font-weight: 600;
+}
+
+/* Savings Banner */
+.savings-banner {
+    background: linear-gradient(135deg, rgba(122, 191, 255, 0.1), rgba(74, 143, 231, 0.05));
+    border: 1px solid rgba(122, 191, 255, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.savings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.savings-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.savings-message {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #7abfff;
+}
+
+.upsell-message {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+.loyalty-points {
+    align-self: flex-end;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+}
+
+/* Price Summary */
+.price-summary {
+    margin: 1.5rem 0;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.price-row.discount {
+    color: #7abfff;
+}
+
+.price-row.total {
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.total-price {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #94a3b8;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.final-price {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: 800;
+}
+
+/* Checkout Actions */
+.checkout-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+.checkout-btn {
+    padding: 1.25rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.checkout-btn.primary {
+    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
+    color: white;
+}
+
+.checkout-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(122, 191, 255, 0.3);
+}
+
+.checkout-btn.paypal {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.checkout-btn.paypal:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.paypal-icon {
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+/* Trust Badge */
+.trust-badge {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.trust-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.trust-icon {
+    width: 24px;
+    height: 24px;
+    background: #7abfff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.trust-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.trust-text strong {
+    font-size: 0.75rem;
+    color: white;
+}
+
+.trust-text span {
+    font-size: 0.625rem;
+    color: #94a3b8;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .wins-boost-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .summary-panel {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .wins-boost-container {
+        padding: 0 1rem 2rem;
+    }
+
+    .config-panel,
+    .order-summary {
+        padding: 1.5rem;
+    }
+
+    .tier-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .division-grid,
+    .lp-range-options,
+    .lp-per-win-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .boost-type-nav {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .wins-boost-hero h1 {
+        font-size: 2rem;
+    }
+
+    .wins-boost-hero p {
+        font-size: 1rem;
+    }
+}
+
+/* Additional matching styles from placements.css */
+.gradient-text {
+    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.info-card {
+    background: rgba(122, 191, 255, 0.05);
+    border: 1px solid rgba(122, 191, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.info-card p {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.promo-badge {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+
+/* Add these styles for the navigation cards */
+.boost-type-nav {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.boost-nav-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.nav-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(122, 191, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.nav-card.active {
+    background: linear-gradient(135deg, rgba(122, 191, 255, 0.1), rgba(74, 143, 231, 0.05));
+    border-color: rgba(122, 191, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(122, 191, 255, 0.1);
+}
+
+.nav-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.nav-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.nav-content p {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.nav-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-card.active .nav-indicator {
+    opacity: 1;
+}
+
+/* Replace the old boost-type-nav styles with these */
+.boost-type-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.boost-nav-link {
+    text-decoration: none;
+}
+
+/* Remove the old button-like styles */
+.boost-type-nav .boost-nav-link {
+    padding: 0;
+    border-radius: 16px;
+}
+
+.boost-type-nav .boost-nav-link.active {
+    background: none;
+}
+
+.boost-type-nav .boost-nav-link:hover {
+    background: none;
+}
+
+
+.modern-select {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}

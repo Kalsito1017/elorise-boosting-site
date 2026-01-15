@@ -10,7 +10,7 @@ const ranks = [
     { id: 5, name: 'Platinum', color: '#4FD1B7', divisions: ['IV', 'III', 'II', 'I'] },
     { id: 6, name: 'Emerald', color: '#2ECC71', divisions: ['IV', 'III', 'II', 'I'] },
     { id: 7, name: 'Diamond', color: '#6CB2EB', divisions: ['IV', 'III', 'II', 'I'] },
-    { id: 8, name: 'Master', color: '#9F7AEA', divisions: [] },
+    { id: 8, name: 'Master+', color: '#9F7AEA', divisions: [] },
 ];
 
 const lpRanges = [
@@ -19,6 +19,15 @@ const lpRanges = [
     '41-60 LP',
     '61-80 LP',
     '81-99 LP',
+    '100+ LP (Promos)'
+];
+
+const LpRangesforMasterPlus = [
+    '0 LP',
+    '20 LP',
+    '40 LP',
+    '60 LP',
+    '80 LP',
     '100+ LP (Promos)'
 ];
 
@@ -64,11 +73,8 @@ function DivisionBoost() {
 
     return (
         <div className="get-started-page">
-            {/* Hero Section */}
-            <div className="get-started-hero">
-                <h1>DIVISION BOOST</h1>
-                <p>Climb divisions fast with our professional boosters</p>
-            </div>
+
+
 
             <div className="get-started-container">
                 {/* Left Panel - Configuration */}

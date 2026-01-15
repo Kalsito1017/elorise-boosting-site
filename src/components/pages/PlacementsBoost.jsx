@@ -153,7 +153,10 @@ function PlacementsBoost() {
                                                     borderColor: rank.color
                                                 }}
                                             >
-                                                <span className="tier-name">{rank.name}</span>
+                                                <div className="tier-icon" style={{ backgroundColor: rank.color }}>
+                                                    {rank.name.charAt(0)}
+                                                </div>
+                                                <span>{rank.name}</span>
                                             </div>
                                         ))}
                                     </div>
