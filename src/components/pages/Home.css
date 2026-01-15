@@ -533,7 +533,7 @@
 }
 
 /* Modal Styles */
-.modal-overlay {
+.home-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;

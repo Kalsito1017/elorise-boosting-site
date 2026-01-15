@@ -376,7 +376,8 @@ export default function Home() {
                     <p>Join thousands of satisfied players who reached their dream rank with EloRise.</p>
 
                     <button>
-                        <Link to="/getstarted" className="cta-button">
+
+                        <Link to="/get-started/division" className="cta-button">
                             Start Your Journey
                         </Link>
 

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './Boosters.css';
 
+import BoosterDetailsModal from '@/components/modals/BoosterDetailsModal';
+
 const boosters = [
     {
         id: 1,
@@ -15,7 +17,8 @@ const boosters = [
         reviews: 142,
         online: true,
         languages: ["EN", "DE", "FR"],
-        avatarColor: "#7abfff"
+
+        avatar: "/backgroundimage.jpg" // Updated to use the same image
     },
     {
         id: 2,
@@ -30,11 +33,12 @@ const boosters = [
         reviews: 98,
         online: true,
         languages: ["EN", "ES"],
-        avatarColor: "#2f9aff"
+
+        avatar: "/backgroundimage.jpg" // Updated to use the same image
     },
     {
         id: 3,
-        name: "GrandmasterBoost",
+        name: "KassadinKR",
         rank: "Grandmaster",
         role: "ADC/Support",
         region: "KR",
@@ -45,7 +49,7 @@ const boosters = [
         reviews: 210,
         online: false,
         languages: ["EN", "KR"],
-        avatarColor: "#ff6b6b"
+        avatar: "/backgroundimage.jpg" // Updated to use the same image
     },
     {
         id: 4,
@@ -60,7 +64,8 @@ const boosters = [
         reviews: 76,
         online: true,
         languages: ["EN"],
-        avatarColor: "#4caf50"
+
+        avatar: "/backgroundimage.jpg" // Updated to use the same image
     },
     {
         id: 5,
@@ -75,7 +80,8 @@ const boosters = [
         reviews: 167,
         online: true,
         languages: ["EN", "DE", "RU"],
-        avatarColor: "#ffa726"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 6,
@@ -90,7 +96,8 @@ const boosters = [
         reviews: 89,
         online: true,
         languages: ["EN"],
-        avatarColor: "#9c27b0"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 7,
@@ -105,7 +112,8 @@ const boosters = [
         reviews: 245,
         online: false,
         languages: ["EN", "KR", "JP"],
-        avatarColor: "#00bcd4"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 8,
@@ -120,8 +128,10 @@ const boosters = [
         reviews: 54,
         online: true,
         languages: ["EN", "ES"],
-        avatarColor: "#795548"
-    }, {
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
+    },
+    {
         id: 9,
         name: "ShadowClimb",
         rank: "Master",
@@ -134,7 +144,8 @@ const boosters = [
         reviews: 112,
         online: true,
         languages: ["EN", "FR"],
-        avatarColor: "#3F51B5"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 10,
@@ -149,7 +160,8 @@ const boosters = [
         reviews: 198,
         online: false,
         languages: ["EN", "KR"],
-        avatarColor: "#F44336"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 11,
@@ -164,7 +176,8 @@ const boosters = [
         reviews: 67,
         online: true,
         languages: ["EN"],
-        avatarColor: "#009688"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 12,
@@ -179,7 +192,8 @@ const boosters = [
         reviews: 324,
         online: true,
         languages: ["EN", "DE"],
-        avatarColor: "#FF9800"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 13,
@@ -194,7 +208,8 @@ const boosters = [
         reviews: 89,
         online: false,
         languages: ["EN", "PT"],
-        avatarColor: "#9C27B0"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 14,
@@ -209,7 +224,8 @@ const boosters = [
         reviews: 42,
         online: true,
         languages: ["EN", "ES"],
-        avatarColor: "#607D8B"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 15,
@@ -224,7 +240,8 @@ const boosters = [
         reviews: 210,
         online: true,
         languages: ["KR", "EN"],
-        avatarColor: "#E91E63"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 16,
@@ -239,7 +256,8 @@ const boosters = [
         reviews: 58,
         online: false,
         languages: ["EN", "IT"],
-        avatarColor: "#4CAF50"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 17,
@@ -254,7 +272,8 @@ const boosters = [
         reviews: 95,
         online: true,
         languages: ["EN"],
-        avatarColor: "#FF5722"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     },
     {
         id: 18,
@@ -269,10 +288,9 @@ const boosters = [
         reviews: 73,
         online: true,
         languages: ["EN", "ES", "DE"],
-        avatarColor: "#2196F3"
+
+        avatar: "/backgroundimage.jpg" // Added avatar property
     }
-
-
 ];
 
 const regions = ["All", "EUW", "NA", "KR", "EUNE", "OCE", "LAN", "LAS", "BR"];
@@ -475,9 +493,13 @@ export default function Boosters() {
                             <div className="booster-header">
                                 <div
                                     className="booster-avatar"
-                                    style={{ backgroundColor: booster.avatarColor }}
+                                    style={{
+                                        backgroundImage: `url('${booster.avatar}')`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
+                                    }}
                                 >
-                                    {booster.name.charAt(0)}
+
                                 </div>
                                 <div className="booster-info">
                                     <div className="booster-name-row">
@@ -606,115 +628,13 @@ export default function Boosters() {
 
             {/* Booster Details Modal */}
             {selectedBooster && (
-                <div className="modal-overlay" onClick={() => setSelectedBooster(null)}>
-                    <div className="booster-modal" onClick={(e) => e.stopPropagation()}>
-                        <div className="modal-header">
-                            <h2>Booster Details</h2>
-                            <button className="close-btn" onClick={() => setSelectedBooster(null)}>×</button>
-                        </div>
-
-                        <div className="modal-content">
-                            <div className="modal-booster-header">
-                                <div
-                                    className="modal-avatar"
-                                    style={{ backgroundColor: selectedBooster.avatarColor }}
-                                >
-                                    {selectedBooster.name.charAt(0)}
-                                </div>
-                                <div className="modal-booster-info">
-                                    <h3>{selectedBooster.name}</h3>
-                                    <div className="modal-tags">
-                                        <span className="rank-tag">{selectedBooster.rank}</span>
-                                        <span className="region-tag">
-                                            {getRegionFlag(selectedBooster.region)} {selectedBooster.region}
-                                        </span>
-                                        <span className={`status-tag ${selectedBooster.online ? 'online' : 'offline'}`}>
-                                            {selectedBooster.online ? 'Online Now' : 'Currently Offline'}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="modal-stats">
-                                <div className="modal-stat">
-                                    <div className="modal-stat-label">Win Rate</div>
-                                    <div className="modal-stat-value">{selectedBooster.winRate}</div>
-                                </div>
-                                <div className="modal-stat">
-                                    <div className="modal-stat-label">Total Games</div>
-                                    <div className="modal-stat-value">{selectedBooster.totalGames.toLocaleString()}</div>
-                                </div>
-                                <div className="modal-stat">
-                                    <div className="modal-stat-label">Hourly Rate</div>
-                                    <div className="modal-stat-value price">{selectedBooster.price}</div>
-                                </div>
-                                <div className="modal-stat">
-                                    <div className="modal-stat-label">Rating</div>
-                                    <div className="modal-stat-value">
-                                        {'★'.repeat(Math.floor(selectedBooster.rating))}
-                                        <span className="rating-number">{selectedBooster.rating}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="modal-details">
-                                <div className="detail-section">
-                                    <h4>Main Roles</h4>
-                                    <div className="roles-list">
-                                        {selectedBooster.role.split('/').map((role, index) => (
-                                            <span key={index} className="role-tag large">
-                                                {getRoleIcon(role)} {role}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="detail-section">
-                                    <h4>Languages</h4>
-                                    <div className="languages-list">
-                                        {selectedBooster.languages.map((lang, index) => (
-                                            <span key={index} className="language-tag large">{lang}</span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="detail-section">
-                                    <h4>Availability</h4>
-                                    <ul className="availability-list">
-                                        <li>✅ Available for immediate start</li>
-                                        <li>✅ 24/7 customer support</li>
-                                        <li>✅ Solo/Duo queue available</li>
-                                        <li>✅ Stream available upon request</li>
-                                    </ul>
-                                </div>
-
-                                <div className="detail-section">
-                                    <h4>About This Booster</h4>
-                                    <p className="booster-bio">
-                                        Professional League of Legends player with extensive experience in competitive boosting.
-                                        Specializes in {selectedBooster.role.toLowerCase()} roles with consistent high performance.
-                                        Known for quick completion times and excellent communication.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="modal-actions">
-                                <button
-                                    className="btn-secondary"
-                                    onClick={() => setSelectedBooster(null)}
-                                >
-                                    Back to List
-                                </button>
-                                <button
-                                    className="btn-primary"
-                                    onClick={() => handleHireBooster(selectedBooster)}
-                                >
-                                    Hire {selectedBooster.name} for {selectedBooster.price}/hour
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <BoosterDetailsModal
+                    booster={selectedBooster}
+                    onClose={() => setSelectedBooster(null)}
+                    onHire={handleHireBooster}
+                    getRegionFlag={getRegionFlag}
+                    getRoleIcon={getRoleIcon}
+                />
             )}
         </main>
     );

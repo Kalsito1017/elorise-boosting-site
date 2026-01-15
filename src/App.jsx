@@ -1,12 +1,15 @@
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom'; // Add useLocation here
+import { BrowserRouter, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import Home from './components/pages/Home.jsx';
-import Boosters from './components/pages/Boosters.jsx';
 import FAQ from './components/pages/FAQ.jsx';
 import { AuthProvider } from './context/AuthContext';
 import './App.css';
-import GetStarted from './components/pages/GetStarted.jsx';
+
+import DivisionBoost from './components/pages/DivisionBoost.jsx';
+import WinsGamesBoost from './components/pages/WinsGamesBoost.jsx';
+import PlacementsBoost from './components/pages/PlacementsBoost.jsx';
+import Boosters from './components/pages/Boosters.jsx';
 import { useEffect } from 'react';
 
 function ScrollToTop() {
@@ -28,10 +31,24 @@ function App() {
           <Header />
           <main>
             <Routes>
+              {/* Home route */}
               <Route path="/" element={<Home />} />
+
+              {/* Other standalone routes */}
               <Route path="/boosters" element={<Boosters />} />
               <Route path="/faq" element={<FAQ />} />
-              <Route path="/getstarted" element={<GetStarted />} />
+
+              {/* Individual boost pages - Simple direct routes */}
+              <Route path="/get-started" element={<DivisionBoost />} />
+              <Route path="/get-started/division" element={<DivisionBoost />} />
+              <Route path="/get-started/wins-games" element={<WinsGamesBoost />} />
+              <Route path="/get-started/placements" element={<PlacementsBoost />} />
+
+              {/* Redirect for old /getstarted URL */}
+              <Route path="/getstarted" element={<Navigate to="/get-started" replace />} />
+
+              {/* Optional: 404 route or redirect */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
           <Footer />

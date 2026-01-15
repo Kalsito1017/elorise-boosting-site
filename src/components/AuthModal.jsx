@@ -13,7 +13,7 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
     if (!isOpen) return null;
 
     return (
-        <div className="modal-overlay" onClick={onClose}>
+        <div className="auth-modal-overlay" onClick={onClose}>
             <div className="auth-modal" onClick={(e) => e.stopPropagation()}>
                 <div className="auth-modal-header">
                     <div className="auth-tabs">
