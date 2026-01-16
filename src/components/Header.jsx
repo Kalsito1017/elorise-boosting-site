@@ -24,7 +24,9 @@ export default function Header() {
             <header className="header">
                 <div className="header-content">
                     <div className="header-left">
-                        <h1 className="logo">EloRise</h1>
+                        <Link to="/" className="logo-link">
+                            <h1 className="logo">EloRise</h1>
+                        </Link>
                         <nav className="main-nav">
                             <Link to="/" className="nav-link">Home</Link>
                             <Link to="/boosters" className="nav-link">Boosters</Link>
