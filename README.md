@@ -50,7 +50,6 @@ npm or yarn package manager
 
 
 ## Project Structure (Have to Update)
-
 elorise-boosting-site/
 ├── src/
 │   ├── components/
