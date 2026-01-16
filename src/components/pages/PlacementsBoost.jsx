@@ -87,24 +87,40 @@ function PlacementsBoost() {
 
 
             <div className="placements-container">
-                {/* Boost Type Navigation */}
-                <div className="boost-navigation">
-                    <div className="navigation-grid">
-                        {boostTypes.map(boost => (
-                            <div
-                                key={boost.id}
-                                className={`nav-card ${boost.id === 'placements' ? 'active' : ''}`}
-                                onClick={() => window.location.href = boost.path}
-                            >
-                                <div className="nav-icon">{boost.icon}</div>
-                                <div className="nav-content">
-                                    <h3>{boost.name}</h3>
-                                    <p>{boost.desc}</p>
-                                </div>
-                                <div className="nav-indicator"></div>
+                {/* Navigation between boost types */}
+                <div className="boost-type-nav">
+                    <a href="/get-started/division" className="boost-nav-link">
+                        <div className="nav-card">
+                            <div className="nav-indicator"></div>
+                            <div className="nav-icon">🏆</div>
+                            <div className="nav-content">
+                                <h3>Division Boost</h3>
+                                <p>Rank up through divisions and tiers</p>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    </a>
+
+                    <a href="/get-started/wins-games" className="boost-nav-link">
+                        <div className="nav-card">
+                            <div className="nav-indicator"></div>
+                            <div className="nav-icon">⚔️</div>
+                            <div className="nav-content">
+                                <h3>Wins/Games Boost</h3>
+                                <p>Win more games with expert help</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="/get-started/placements" className="boost-nav-link active">
+                        <div className="nav-card active">
+                            <div className="nav-indicator"></div>
+                            <div className="nav-icon">🎯</div>
+                            <div className="nav-content">
+                                <h3>Placements</h3>
+                                <p>Complete your placement matches</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
 
                 <div className="placements-layout">

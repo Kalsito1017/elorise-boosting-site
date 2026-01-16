@@ -1,34 +1,9 @@
-/* Modern Wins/Games Boost CSS */
-.wins-games-boost-page {
+/* Division Boost CSS - Matching WinsGamesBoost style */
+.get-started-page {
     background: linear-gradient(135deg, #0a0a0f 0%, #0f1117 100%);
     min-height: 100vh;
     color: #ffffff;
-}
-
-/* Hero Section */
-.wins-boost-hero {
-    text-align: center;
-    padding: 3rem 2rem;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    margin-bottom: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.wins-boost-hero h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 1rem;
-}
-
-.wins-boost-hero p {
-    font-size: 1.125rem;
-    color: #94a3b8;
-    max-width: 600px;
-    margin: 0 auto;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
 }
 
 /* Replace the existing .boost-type-nav styles with these: */
@@ -109,7 +84,7 @@
 }
 
 /* Main Container */
-.wins-boost-container {
+.get-started-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem 3rem;
@@ -127,6 +102,17 @@
     backdrop-filter: blur(10px);
 }
 
+/* Rank Selection Section */
+.rank-selection-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.rank-selector {
+    margin-bottom: 2rem;
+}
+
 /* Section Header */
 .section-header {
     margin-bottom: 1.5rem;
@@ -139,7 +125,7 @@
     color: white;
 }
 
-.section-subtitle {
+.section-header p {
     color: #94a3b8;
     font-size: 0.875rem;
 }
@@ -197,15 +183,11 @@
 }
 
 /* Division Section */
-.division-section,
-.lp-range-section,
-.lp-per-win-section {
+.division-section {
     margin-bottom: 1.5rem;
 }
 
-.division-section h3,
-.lp-range-section h3,
-.lp-per-win-section h3 {
+.division-section h4 {
     font-size: 0.875rem;
     font-weight: 600;
     color: #94a3b8;
@@ -213,45 +195,139 @@
     text-transform: uppercase;
 }
 
-.division-grid,
-.lp-range-options,
-.lp-per-win-options {
+.division-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
 }
 
-.division-btn,
-.lp-range-btn,
-.lp-per-win-btn {
+.division-btn {
     padding: 0.75rem;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     color: #cbd5e1;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
 }
 
-.division-btn:hover,
-.lp-range-btn:hover,
-.lp-per-win-btn:hover {
+.division-btn:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(122, 191, 255, 0.3);
 }
 
-.division-btn.active,
-.lp-range-btn.active,
-.lp-per-win-btn.active {
+.division-btn.active {
     background: linear-gradient(135deg, rgba(122, 191, 255, 0.2), rgba(74, 143, 231, 0.1));
     border-color: #7abfff;
     color: white;
 }
 
-/* Server Section */
+/* LP Section */
+.lp-section {
+    margin-bottom: 1.5rem;
+}
+
+.lp-section h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+}
+
+.lp-select {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lp-select:focus {
+    outline: none;
+    border-color: #7abfff;
+    box-shadow: 0 0 0 3px rgba(122, 191, 255, 0.1);
+}
+
+.lp-select option {
+    background: #1a1a2e;
+    color: white;
+}
+
+/* Avg LP Section */
+.avg-lp-section {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.avg-lp-section h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+}
+
+/* LP Input Section for Master+ */
+.lp-input-section {
+    margin-bottom: 1.5rem;
+}
+
+.lp-input-section h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+}
+
+.lp-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.lp-input {
+    width: 100%;
+    padding: 0.75rem;
+    padding-right: 3rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.lp-input:focus {
+    outline: none;
+    border-color: #7abfff;
+    box-shadow: 0 0 0 3px rgba(122, 191, 255, 0.1);
+}
+
+.lp-suffix {
+    position: absolute;
+    right: 1rem;
+    color: #94a3b8;
+    font-size: 0.875rem;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.lp-note {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
 .server-section {
     margin-bottom: 1.5rem;
 }
@@ -282,179 +358,9 @@
     box-shadow: 0 0 0 3px rgba(122, 191, 255, 0.1);
 }
 
-/* Divider */
-.section-divider {
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 1.5rem 0;
-}
-
-/* Wins Number Section */
-.wins-number-section {
-    margin-bottom: 1.5rem;
-}
-
-.wins-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.wins-header h3 {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #94a3b8;
-    text-transform: uppercase;
-}
-
-.wins-display {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.wins-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 2px solid #7abfff;
-    background: transparent;
-    color: #7abfff;
-    font-size: 1.25rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.wins-btn:hover:not(:disabled) {
-    background: #7abfff;
-    color: white;
-    transform: scale(1.1);
-}
-
-.wins-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-}
-
-.wins-number-large {
-    font-size: 2.5rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    min-width: 50px;
-    text-align: center;
-}
-
-/* Wins Slider */
-.wins-slider-container {
-    position: relative;
-    padding: 1rem 0;
-}
-
-.wins-slider-input {
-    width: 100%;
-    height: 6px;
-
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    outline: none;
-}
-
-.wins-slider-input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
-    cursor: pointer;
-    border: 3px solid #0a0a0f;
-    box-shadow: 0 2px 8px rgba(122, 191, 255, 0.3);
-}
-
-.wins-slider-input::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
-    cursor: pointer;
-    border: 3px solid #0a0a0f;
-    box-shadow: 0 2px 8px rgba(122, 191, 255, 0.3);
-}
-
-.slider-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.5rem;
-}
-
-.slider-labels span {
-    font-size: 0.75rem;
-    color: #94a3b8;
-    font-weight: 600;
-}
-
-/* FAQ Section */
-.wins-faq-section {
-    margin-bottom: 1.5rem;
-}
-
-.faq-question {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #7abfff;
-    margin-bottom: 0.75rem;
-}
-
-.faq-answer {
-    font-size: 0.875rem;
-    color: #94a3b8;
-    line-height: 1.5;
-    background: rgba(122, 191, 255, 0.05);
-    border: 1px solid rgba(122, 191, 255, 0.1);
-    border-radius: 12px;
-    padding: 1rem;
-}
-
-/* Season Banner */
-.season-banner {
-    background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
-    border: 1px solid rgba(122, 191, 255, 0.2);
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.season-content {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.season-icon {
-    font-size: 2rem;
-}
-
-.season-text h4 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-    color: white;
-}
-
-.season-text p {
-    font-size: 0.75rem;
-    color: #94a3b8;
-}
-
 /* Queue Type Section */
 .queue-type-section {
+    margin-top: 2rem;
     margin-bottom: 1.5rem;
 }
 
@@ -527,23 +433,33 @@
     margin-bottom: 1.5rem;
 }
 
-.wins-summary {
+.rank-display-summary {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     gap: 1rem;
 }
 
 .current-rank-display,
-.wins-count-display {
+.desired-rank-display {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.arrow {
+    font-size: 1.5rem;
+    color: #7abfff;
+    font-weight: 700;
+    margin: 0 0.5rem;
 }
 
 .label {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: #94a3b8;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 .rank-value {
@@ -770,7 +686,7 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-    .wins-boost-container {
+    .get-started-container {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
@@ -781,7 +697,7 @@
 }
 
 @media (max-width: 768px) {
-    .wins-boost-container {
+    .get-started-container {
         padding: 0 1rem 2rem;
     }
 
@@ -794,70 +710,22 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .division-grid,
-    .lp-range-options,
-    .lp-per-win-options {
+    .division-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
     .boost-type-nav {
+        grid-template-columns: 1fr;
+    }
+
+    .rank-display-summary {
         flex-direction: column;
-        gap: 0.5rem;
+        align-items: stretch;
+        gap: 1rem;
     }
 
-    .wins-boost-hero h1 {
-        font-size: 2rem;
+    .arrow {
+        transform: rotate(90deg);
+        margin: 0.5rem 0;
     }
-
-    .wins-boost-hero p {
-        font-size: 1rem;
-    }
-}
-
-/* Additional matching styles from placements.css */
-.gradient-text {
-    background: linear-gradient(135deg, #7abfff 0%, #4a8fe7 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.info-card {
-    background: rgba(122, 191, 255, 0.05);
-    border: 1px solid rgba(122, 191, 255, 0.1);
-    border-radius: 12px;
-    padding: 1rem;
-    margin: 1rem 0;
-}
-
-.info-card p {
-    font-size: 0.9rem;
-    color: #94a3b8;
-    margin: 0;
-    line-height: 1.4;
-}
-
-.promo-badge {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: inline-block;
-    margin-left: 0.5rem;
-}
-
-
-.modern-select {
-    width: 100%;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    color: white;
-    font-size: 1rem;
-    appearance: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
 }

@@ -38,17 +38,19 @@
     pointer-events: none;
 }
 
-/* Boost Navigation */
-.boost-navigation {
+/* Replace the existing .boost-type-nav styles with these: */
+.boost-type-nav {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-.navigation-grid {
+    margin: 0 auto 2rem;
+    padding: 0 2rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+}
+
+.boost-nav-link {
+    text-decoration: none;
+    color: inherit;
 }
 
 .nav-card {
@@ -60,6 +62,11 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .nav-card:hover {
@@ -92,6 +99,7 @@
     margin: 0;
 }
 
+/* This is the "light above the box" indicator */
 .nav-indicator {
     position: absolute;
     top: 0;
