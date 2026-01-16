@@ -51,8 +51,6 @@ npm or yarn package manager
 
 ## Project Structure (Have to Update)
 
-## Project Structure
-
 ```text
 elorise-boosting-site/
 ├── src/
@@ -70,7 +68,7 @@ elorise-boosting-site/
 ├── package.json
 ├── vite.config.js
 └── README.md
-
+```
 
 
 # Future Enhancements
