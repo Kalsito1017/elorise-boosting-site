@@ -146,9 +146,6 @@ export default function Home() {
             case 'features':
                 targetRef = featuresRef;
                 break;
-            case 'pricing':
-                targetRef = pricingRef;
-                break;
             case 'stats':
                 targetRef = statsRef;
                 break;
@@ -183,20 +180,6 @@ export default function Home() {
         scrollToSection('features');
     };
 
-    // Handle plan selection with animation
-    const handleSelectPlan = (index) => {
-        setActivePlan(index);
-
-        // Add a visual feedback animation
-        const planCards = document.querySelectorAll('.pricing-card');
-        if (planCards[index]) {
-            planCards[index].classList.add('selected-pulse');
-            setTimeout(() => {
-                planCards[index].classList.remove('selected-pulse');
-            }, 600);
-        }
-    };
-
     return (
         <main className="home-container">
             {/* Scroll to Top Arrow */}
@@ -210,20 +193,11 @@ export default function Home() {
 
             {/* Optional: Navigation Dots */}
             <div className="page-navigation">
-                <div
-                    className={`nav-dot ${activeSection === 'hero' ? 'active' : ''}`}
-                    data-tooltip="Home"
-                    onClick={() => scrollToSection('hero')}
-                />
+
                 <div
                     className={`nav-dot ${activeSection === 'features' ? 'active' : ''}`}
                     data-tooltip="Why Choose EloRise?"
                     onClick={() => scrollToSection('features')}
-                />
-                <div
-                    className={`nav-dot ${activeSection === 'pricing' ? 'active' : ''}`}
-                    data-tooltip="Pricing Plans"
-                    onClick={() => scrollToSection('pricing')}
                 />
                 <div
                     className={`nav-dot ${activeSection === 'stats' ? 'active' : ''}`}
@@ -291,44 +265,6 @@ export default function Home() {
                             <div className="feature-icon">{feature.icon}</div>
                             <h3>{feature.title}</h3>
                             <p>{feature.description}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Pricing Section */}
-            <section
-                className={`pricing-section ${activeSection === 'pricing' ? 'active' : ''}`}
-                ref={pricingRef}
-                id="pricing"
-            >
-                <h2 className="section-title">Choose Your Plan</h2>
-                <div className="pricing-grid">
-                    {pricingPlans.map((plan, index) => (
-                        <div
-                            key={index}
-                            className={`pricing-card ${plan.popular ? 'popular' : ''} ${activePlan === index ? 'selected' : ''}`}
-                            style={{ borderTopColor: plan.color }}
-                            onClick={() => handleSelectPlan(index)}
-                        >
-                            {plan.popular && <div className="popular-badge">Most Popular</div>}
-                            <h3>{plan.name}</h3>
-                            <div className="price">{plan.price}</div>
-                            <ul className="plan-features">
-                                {plan.features.map((feature, idx) => (
-                                    <li key={idx}>{feature}</li>
-                                ))}
-                            </ul>
-                            <button
-                                className="btn-buy"
-                                style={{ backgroundColor: plan.color }}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleSelectPlan(index);
-                                }}
-                            >
-                                {activePlan === index ? 'Selected!' : 'Select Plan'}
-                            </button>
                         </div>
                     ))}
                 </div>

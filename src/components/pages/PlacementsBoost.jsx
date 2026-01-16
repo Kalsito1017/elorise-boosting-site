@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './PlacementsBoost.css';
 
 // Reuse the same data
@@ -31,14 +31,83 @@ const servers = [
     'Turkey'
 ];
 
-// Add this missing array - Placement match options
+// Base price per game
+const baseGamePrice = 9.99;
+
 const placementOptions = [
-    { value: 1, label: '1 Game', price: 9.99 },
-    { value: 2, label: '2 Games', price: 18.99 },
-    { value: 3, label: '3 Games', price: 26.99 },
-    { value: 4, label: '4 Games', price: 34.99 },
-    { value: 5, label: '5 Games', price: 39.99 }
+    { value: 1, label: '1 Game', basePrice: baseGamePrice },
+    { value: 2, label: '2 Games', basePrice: baseGamePrice * 2 },
+    { value: 3, label: '3 Games', basePrice: baseGamePrice * 3 },
+    { value: 4, label: '4 Games', basePrice: baseGamePrice * 4 },
+    { value: 5, label: '5 Games', basePrice: baseGamePrice * 5 }
 ];
+
+// Tier-based price multipliers (higher tier = higher price)
+const getTierMultiplier = (tierName) => {
+    const tierMultipliers = {
+        'Iron': 1.0,
+        'Bronze': 1.15,
+        'Silver': 1.3,
+        'Gold': 1.5,
+        'Platinum': 1.8,
+        'Emerald': 2.1,
+        'Diamond': 2.5,
+        'Master': 3.2,
+        'GrandMaster': 4.0,
+        'Challenger': 5.0
+    };
+    return tierMultipliers[tierName] || 1.0;
+};
+
+// Division-based price multipliers within each tier (higher division = higher price)
+const getDivisionMultiplier = (division) => {
+    const divisionMultipliers = {
+        'IV': 1.0,    // Cheapest
+        'III': 1.05,  // +5%
+        'II': 1.1,    // +10%
+        'I': 1.15     // Most expensive (+15%)
+    };
+    return divisionMultipliers[division] || 1.0;
+};
+
+// Get total rank multiplier (tier × division)
+const getRankMultiplier = (tierName, division) => {
+    const tierMultiplier = getTierMultiplier(tierName);
+    const divisionMultiplier = getDivisionMultiplier(division);
+    return tierMultiplier * divisionMultiplier;
+};
+
+// Get loyalty points based on rank (tier + division)
+const getLoyaltyPointsForRank = (tierName, division, numberOfGames) => {
+    // Base points per tier
+    const tierPoints = {
+        'Iron': 5,
+        'Bronze': 8,
+        'Silver': 12,
+        'Gold': 15,
+        'Platinum': 20,
+        'Emerald': 25,
+        'Diamond': 30,
+        'Master': 40,
+        'GrandMaster': 50,
+        'Challenger': 65
+    };
+
+    // Division bonus points (higher division = more points)
+    const divisionBonus = {
+        'IV': 0,
+        'III': 1,
+        'II': 2,
+        'I': 3
+    };
+
+    const basePoints = tierPoints[tierName] || 5;
+    const divisionPoints = divisionBonus[division] || 0;
+    const pointsPerGame = basePoints + divisionPoints;
+
+    // Multiply by number of games
+    return pointsPerGame * numberOfGames;
+};
 
 function PlacementsBoost() {
     const [lastSeasonRank, setLastSeasonRank] = useState({
@@ -50,23 +119,58 @@ function PlacementsBoost() {
     const [queueType, setQueueType] = useState('solo');
     const [selectedPlacements, setSelectedPlacements] = useState(5);
     const [hasPreviousRank, setHasPreviousRank] = useState(true);
+    const [loyaltyPoints, setLoyaltyPoints] = useState(0);
+    const [rankMultiplier, setRankMultiplier] = useState(1.0);
+
+    useEffect(() => {
+        // Update loyalty points and rank multiplier when rank or number of games changes
+        if (hasPreviousRank) {
+            const points = getLoyaltyPointsForRank(lastSeasonRank.tier, lastSeasonRank.division, selectedPlacements);
+            const multiplier = getRankMultiplier(lastSeasonRank.tier, lastSeasonRank.division);
+            setLoyaltyPoints(points);
+            setRankMultiplier(multiplier);
+        } else {
+            // Default for first-time players
+            setLoyaltyPoints(5 * selectedPlacements);
+            setRankMultiplier(1.0);
+        }
+    }, [lastSeasonRank.tier, lastSeasonRank.division, selectedPlacements, hasPreviousRank]);
 
     const handleRankSelect = (field, value) => {
-        setLastSeasonRank({ ...lastSeasonRank, [field]: value });
+        const newRank = { ...lastSeasonRank, [field]: value };
+        setLastSeasonRank(newRank);
     };
 
-    // Price calculation function
+    // Price calculation function with tier + division based pricing
     const calculatePricing = () => {
-        const basePrice = placementOptions.find(opt => opt.value === selectedPlacements)?.price || 39.99;
-        const discount = selectedPlacements === 5 ? 5.00 : selectedPlacements === 4 ? 3.00 : selectedPlacements === 3 ? 2.00 : selectedPlacements === 2 ? 1.00 : 0.50;
+        // Get base price for selected number of games
+        const baseGameTotal = placementOptions.find(opt => opt.value === selectedPlacements)?.basePrice || (baseGamePrice * 5);
+
+        // Apply rank multiplier (tier × division)
+        const basePriceBeforeDiscount = baseGameTotal * rankMultiplier;
+
+        // Calculate discount based on number of games
+        let discount = 0;
+        if (selectedPlacements === 5) discount = 5.00;
+        else if (selectedPlacements === 4) discount = 3.00;
+        else if (selectedPlacements === 3) discount = 2.00;
+        else if (selectedPlacements === 2) discount = 1.00;
+        else if (selectedPlacements === 1) discount = 0.50;
+
+        // Apply rank multiplier to discount
+        discount = discount * rankMultiplier;
 
         // Duo queue adds 10% to price
         const duoMultiplier = queueType === 'duo' ? 1.10 : 1.00;
 
-        const finalBasePrice = basePrice * duoMultiplier;
+        const finalBasePrice = basePriceBeforeDiscount * duoMultiplier;
         const finalDiscount = discount * duoMultiplier;
         const finalPrice = finalBasePrice - finalDiscount;
         const savingsPercent = Math.round((finalDiscount / finalBasePrice) * 100);
+
+        // Get individual multipliers for display
+        const tierMultiplier = getTierMultiplier(lastSeasonRank.tier);
+        const divisionMultiplier = getDivisionMultiplier(lastSeasonRank.division);
 
         return {
             basePrice: finalBasePrice,
@@ -75,17 +179,29 @@ function PlacementsBoost() {
             savingsPercent: savingsPercent,
             isDuo: queueType === 'duo',
             duoMultiplier: duoMultiplier,
-            originalBasePrice: basePrice,
-            originalDiscount: discount
+            originalBasePrice: basePriceBeforeDiscount,
+            originalDiscount: discount,
+            rankMultiplier: rankMultiplier.toFixed(2),
+            tierMultiplier: tierMultiplier.toFixed(2),
+            divisionMultiplier: divisionMultiplier.toFixed(2)
         };
     };
 
     const prices = calculatePricing();
 
+    // Get rank display text with multiplier info
+    const getRankDisplayText = () => {
+        if (!hasPreviousRank) return 'First Time';
+
+        const hasDivisions = !['Master', 'GrandMaster', 'Challenger'].includes(lastSeasonRank.tier);
+        if (hasDivisions) {
+            return `${lastSeasonRank.tier} ${lastSeasonRank.division}`;
+        }
+        return lastSeasonRank.tier;
+    };
+
     return (
         <div className="placements-page">
-
-
             <div className="placements-container">
                 {/* Navigation between boost types */}
                 <div className="boost-type-nav">
@@ -159,22 +275,26 @@ function PlacementsBoost() {
                                 <div className="rank-selection">
                                     <h3 className="selection-title">Select Your Rank</h3>
                                     <div className="rank-tiers">
-                                        {ranks.map(rank => (
-                                            <div
-                                                key={rank.id}
-                                                className={`tier-pill ${lastSeasonRank.tier === rank.name ? 'selected' : ''}`}
-                                                onClick={() => handleRankSelect('tier', rank.name)}
-                                                style={{
-                                                    background: lastSeasonRank.tier === rank.name ? rank.color : 'rgba(255, 255, 255, 0.05)',
-                                                    borderColor: rank.color
-                                                }}
-                                            >
-                                                <div className="tier-icon" style={{ backgroundColor: rank.color }}>
-                                                    {rank.name.charAt(0)}
+                                        {ranks.map(rank => {
+                                            const tierMultiplier = getTierMultiplier(rank.name);
+                                            return (
+                                                <div
+                                                    key={rank.id}
+                                                    className={`tier-pill ${lastSeasonRank.tier === rank.name ? 'selected' : ''}`}
+                                                    onClick={() => handleRankSelect('tier', rank.name)}
+                                                    style={{
+                                                        background: lastSeasonRank.tier === rank.name ? rank.color : 'rgba(255, 255, 255, 0.05)',
+                                                        borderColor: rank.color
+                                                    }}
+                                                >
+                                                    <div className="tier-icon" style={{ backgroundColor: rank.color }}>
+                                                        {rank.name.charAt(0)}
+                                                    </div>
+                                                    <span>{rank.name}</span>
+
                                                 </div>
-                                                <span>{rank.name}</span>
-                                            </div>
-                                        ))}
+                                            );
+                                        })}
                                     </div>
 
                                     {/* Division Selection - Only show for ranks that have divisions */}
@@ -184,16 +304,23 @@ function PlacementsBoost() {
                                             <div className="division-selection">
                                                 <h4>Division</h4>
                                                 <div className="division-buttons">
-                                                    {ranks.find(r => r.name === lastSeasonRank.tier)?.divisions.map(div => (
-                                                        <button
-                                                            key={div}
-                                                            className={`division-pill ${lastSeasonRank.division === div ? 'active' : ''}`}
-                                                            onClick={() => handleRankSelect('division', div)}
-                                                        >
-                                                            {div}
-                                                        </button>
-                                                    ))}
+                                                    {ranks.find(r => r.name === lastSeasonRank.tier)?.divisions.map(div => {
+                                                        const divisionMultiplier = getDivisionMultiplier(div);
+                                                        const totalMultiplier = getRankMultiplier(lastSeasonRank.tier, div);
+                                                        return (
+                                                            <button
+                                                                key={div}
+                                                                className={`division-pill ${lastSeasonRank.division === div ? 'active' : ''}`}
+                                                                onClick={() => handleRankSelect('division', div)}
+
+                                                            >
+                                                                {div}
+
+                                                            </button>
+                                                        );
+                                                    })}
                                                 </div>
+
                                             </div>
                                         )}
 
@@ -243,6 +370,7 @@ function PlacementsBoost() {
                                     <span className="counter-number">{selectedPlacements}</span>
                                     <span className="counter-label">Games</span>
                                 </div>
+
                             </div>
 
                             <div className="games-slider">
@@ -262,8 +390,6 @@ function PlacementsBoost() {
                                     <span>5</span>
                                 </div>
                             </div>
-
-
                         </div>
 
                         {/* Queue Type Card */}
@@ -313,10 +439,7 @@ function PlacementsBoost() {
                                 <div className="detail-row">
                                     <span className="detail-label">Previous Rank:</span>
                                     <span className="detail-value">
-                                        {hasPreviousRank ?
-                                            `${lastSeasonRank.tier}${['Master', 'GrandMaster', 'Challenger'].includes(lastSeasonRank.tier) ? '' : ' ' + lastSeasonRank.division}`
-                                            : 'First Time'
-                                        }
+                                        {getRankDisplayText()}
                                     </span>
                                 </div>
                                 <div className="detail-row">
@@ -334,6 +457,7 @@ function PlacementsBoost() {
                             </div>
 
 
+
                             {/* Savings Banner */}
                             <div className="savings-card">
                                 <div className="savings-badge">
@@ -342,18 +466,19 @@ function PlacementsBoost() {
                                 </div>
                                 <div className="savings-content">
                                     <p>You save <strong>${prices.discount.toFixed(2)}</strong> on this order!</p>
-                                    <span className="loyalty-points">+45 Loyalty Points</span>
+                                    <span className="loyalty-points">+{loyaltyPoints} Loyalty Points</span>
                                 </div>
                             </div>
 
                             <div className="price-summary">
-                                <div className="price-row">
-                                    <span>Base Price</span>
-                                    <span className="price-amount">
-                                        ${prices.basePrice.toFixed(2)}
-                                        {prices.isDuo && <span className="duo-badge">+10%</span>}
-                                    </span>
-                                </div>
+                                {hasPreviousRank && (
+                                    <div className="price-row">
+                                        <span>Subtotal after rank multipliers</span>
+                                        <span className="price-amount">
+                                            ${prices.originalBasePrice.toFixed(2)}
+                                        </span>
+                                    </div>
+                                )}
                                 {prices.isDuo && (
                                     <div className="price-row info">
                                         <span>Duo Queue Surcharge</span>
@@ -361,7 +486,7 @@ function PlacementsBoost() {
                                     </div>
                                 )}
                                 <div className="price-row discount">
-                                    <span>Discount</span>
+                                    <span>Volume Discount</span>
                                     <span className="price-amount">-${prices.discount.toFixed(2)}</span>
                                 </div>
                                 <div className="price-row total">
@@ -385,7 +510,7 @@ function PlacementsBoost() {
                                 </button>
                             </div>
 
-                            {/* Trust Indicators - Added back */}
+                            {/* Trust Indicators */}
                             <div className="trust-indicators">
                                 <div className="trust-item">
                                     <div className="trust-icon">🔒</div>
