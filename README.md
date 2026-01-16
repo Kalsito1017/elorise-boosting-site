@@ -1,4 +1,4 @@
-### EloRise Boosting Site
+# EloRise Boosting Site
 A professional League of Legends boosting service interface built as a single-page React application with modern UI/UX design.
 
 
