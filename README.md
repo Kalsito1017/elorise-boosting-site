@@ -44,7 +44,7 @@ Form validation and user-friendly error handling
 Modular component structure for easy maintenance
 
 ## Prerequisites
-Node.js 16+
+Node.js 20+
 
 npm or yarn package manager
 
@@ -78,12 +78,12 @@ User authentication and account management
 
 Order history and tracking
 
-Booster selection interface
+Booster selection interface (having it just have to add Hire Now implementation of the button)
 
-Payment gateway integration
+Payment gateway integration 
 
 Admin dashboard for order management
 
-Enhanced mobile experience
+Enhanced mobile experience (It has responsive design)
 
-Additional game support beyond League of Legends
+Additional game support beyond League of Legends 
