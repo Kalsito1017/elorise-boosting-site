@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import heroVideo from "@/assets/Spirit-Blossom-Kindred-Animated-Wallpaper.mp4";
+import JinxImage from "@/assets/Jinx.png";
 import './Home.css';
 import { Link } from 'react-router-dom';
 
@@ -307,19 +308,27 @@ export default function Home() {
                 ref={ctaRef}
                 id="cta"
             >
-                <div className="card">
+                {/* Background image */}
+                <img src={JinxImage} alt="Jinx" className="cta-bg" />
+
+                {/* Overlay (optional dark gradient) */}
+                <div className="cta-overlay" />
+
+                {/* Content */}
+                <div className="cta-content">
                     <h2>Ready to Climb?</h2>
-                    <p>Join thousands of satisfied players who reached their dream rank with EloRise.</p>
+                    <p>
+                        Join thousands of satisfied players who reached their dream rank with
+                        EloRise.
+                    </p>
 
-                    <button>
-
-                        <Link to="/get-started/division" className="cta-button">
-                            Start Your Journey
-                        </Link>
-
-                    </button>
+                    <Link to="/get-started/division" className="cta-button">
+                        Start Your Journey
+                    </Link>
                 </div>
             </section>
+
+
         </main>
     );
 }
