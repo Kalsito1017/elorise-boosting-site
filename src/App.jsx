@@ -31,23 +31,22 @@ function App() {
           <Header />
           <main>
             <Routes>
-              {/* Home route */}
+             
               <Route path="/" element={<Home />} />
 
-              {/* Other standalone routes */}
+           
               <Route path="/boosters" element={<Boosters />} />
               <Route path="/faq" element={<FAQ />} />
 
-              {/* Individual boost pages - Simple direct routes */}
+             
               <Route path="/get-started" element={<DivisionBoost />} />
               <Route path="/get-started/division" element={<DivisionBoost />} />
               <Route path="/get-started/wins-games" element={<WinsGamesBoost />} />
               <Route path="/get-started/placements" element={<PlacementsBoost />} />
 
-              {/* Redirect for old /getstarted URL */}
               <Route path="/getstarted" element={<Navigate to="/get-started" replace />} />
 
-              {/* Optional: 404 route or redirect */}
+     
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
