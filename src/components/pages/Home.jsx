@@ -192,7 +192,7 @@ export default function Home() {
                 ↑
             </button>
 
-            {/* Optional: Navigation Dots */}
+            {/* Navigation Dots */}
             <div className="page-navigation">
 
                 <div
@@ -331,4 +331,5 @@ export default function Home() {
 
         </main>
     );
+
 }
