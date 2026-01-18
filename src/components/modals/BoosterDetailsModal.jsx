@@ -145,6 +145,7 @@ export default function BoosterDetailsModal({
                     </div>
 
                     {/* Action Buttons */}
+                    {/* Have to Implement it */}
                     <div className="booster-details-actions-container">
                         <button
                             className="booster-details-back-btn"
@@ -171,4 +172,5 @@ export default function BoosterDetailsModal({
             </div>
         </div>
     );
+
 }
